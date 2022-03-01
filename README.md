@@ -8,6 +8,11 @@ It lets you configure emoji and colors for block references that match patterns 
 
 ![](/demo.gif)
 
+### Installation
+
+- `yarn && yarn build` in the terminal to install dependencies.
+- `Load unpacked plugin` in the Logseq Desktop client (under Plugins).
+
 ### License
 
 MIT
