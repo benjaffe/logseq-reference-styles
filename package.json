@@ -1,6 +1,6 @@
 {
   "name": "logseq-reference-styles",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Add emoji or custom colors to block references that match particular patterns",
   "author": "Ben Jaffe",
   "license": "MIT",
