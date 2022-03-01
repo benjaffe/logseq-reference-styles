@@ -1,7 +1,7 @@
 {
   "name": "logseq-reference-styles",
   "version": "0.0.1",
-  "description": "Allows users to add emoji before, and color, links that match particular patterns.",
+  "description": "Add emoji or custom colors to block references that match particular patterns",
   "author": "Ben Jaffe",
   "license": "MIT",
   "scripts": {
@@ -19,8 +19,8 @@
     "uuid": "^8.3.2"
   },
   "logseq": {
-    "id": "_kf7vf288u",
+    "id": "_kf7vf287u",
     "main": "dist/index.html",
-    "icon": "./logo.jpg"
+    "icon": "./logo.png"
   }
 }

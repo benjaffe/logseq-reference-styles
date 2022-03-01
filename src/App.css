@@ -2,11 +2,12 @@
   position: absolute;
   top: 15%;
   left: 50%;
+  min-width: 33%;
   transform: translate(-50%);
   background-color: #eee;
   border: 1px solid #999;
   border-radius: 4px;
-  padding: 16px;
+  padding: 24px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
 }
 .block-ref-style-wrapper {
@@ -32,11 +33,23 @@
   background-color: #ddd;
 }
 .fix {
-  width: 3em;
+  width: 5em;
 }
 .char {
-  width: 1em;
+  width: 2em;
 }
 .color {
   width: 10em;
+}
+.btn-add {
+  margin-top: 4px;
+}
+.closeButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  padding: 2px 4px;
+  font-family: sans-serif;
+  color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }

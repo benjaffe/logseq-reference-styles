@@ -1,6 +1,12 @@
 ## Logseq Reference Styles
 
-Allows users to add emoji(s) before blocks with a given prefix.
+Logseq Reference Styles is a new plugin to make Logseq beautiful.
+
+It lets you configure emoji and colors for block references that match patterns of your choice.
+
+![](/demo.png)
+
+![](/demo.gif)
 
 ### License
 
