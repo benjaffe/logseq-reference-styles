@@ -48,3 +48,42 @@ export const makePrefixCSS = (
   top: 3px;
 }`;
 };
+
+export const makePrefixCSSDarkMode = (
+  title: string,
+  {prefix, character, color, colorDarkMode}: BlockStyle,
+) => {
+  // brittle, imitating `page-name-sanity` in the logseq source code
+  const prefixEscaped = prefix
+    .replace(/[\[\:\\\*\?\"\<\>\|\]\+\%\#]/g, '_')
+    .toLowerCase();
+  return `
+/* ${title} */
+.page-reference[data-ref^='${prefix}'] .page-ref,
+.page-ref[data-ref^='${prefixEscaped}'],
+.recent-item[data-ref^='${prefixEscaped}'] a,
+.title[data-ref^='${prefixEscaped}'] {
+  ${color ? `color: ${colorDarkMode}!important;` : 'color: inherit!important;'}
+  font-weight: 500;
+}
+.recent-item[data-ref^='${prefixEscaped}'] {
+  position: relative;
+}
+.recent-item[data-ref^='${prefixEscaped}'] .page-icon {
+  visibility: hidden;
+}
+.page-reference[data-ref^='${prefix}'] .page-ref:before,
+.page-ref[data-ref^='${prefixEscaped}']:before,
+.recent-item[data-ref^='${prefixEscaped}']:before,
+.title[data-ref^='${prefixEscaped}']:before {
+  display: ${character ? 'inline' : 'none'};
+  content: '${character || ''}';
+  margin-right: 2px;
+}
+
+.recent-item[data-ref^='${prefixEscaped}']:before {
+  position: absolute;
+  left: 20px;
+  top: 3px;
+}`;
+};

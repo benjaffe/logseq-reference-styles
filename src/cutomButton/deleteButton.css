@@ -1,0 +1,24 @@
+/* From uiverse.io by @hannahyockel */
+.btn-block-remove {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ border: 0px solid transparent;
+ background-color: rgba(100,77,237,0.08);
+ border-radius: 1.25em;
+ transition: all 0.2s linear;
+}
+
+.btn-block-remove:hover {
+ box-shadow: 3.4px 2.5px 4.9px rgba(0, 0, 0, 0.025),
+  8.6px 6.3px 12.4px rgba(0, 0, 0, 0.035),
+  17.5px 12.8px 25.3px rgba(0, 0, 0, 0.045),
+  36.1px 26.3px 52.2px rgba(0, 0, 0, 0.055),
+  99px 72px 143px rgba(0, 0, 0, 0.08);
+}
+
+.tooltip {
+ position: relative;
+ display: inline-block;
+}

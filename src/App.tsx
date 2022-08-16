@@ -2,33 +2,51 @@ import '@logseq/libs';
 import React, {useState} from 'react';
 import './App.css';
 import {v4 as uuid} from 'uuid';
-import {makePrefixCSS} from './makePrefixCSS';
-
+import {makePrefixCSS,makePrefixCSSDarkMode} from './makePrefixCSS';
+import  ThemeConfig, {ThemeMode} from "./UserTheme"
+import CustomInput from './customInput';
+import DeleteButton from './cutomButton/deleteButton';
+import AddButton from './cutomButton/AddButton'
 export type BlockStyle = {
   prefix: string;
   character?: string;
   color?: string;
+  colorDarkMode?: string;
 };
 
 export type BlockStyles = {[key: string]: BlockStyle};
 
-const makeCSS = (customizations: BlockStyles) => {
-  return Object.entries(customizations)
-    .map((customization) => makePrefixCSS(...customization))
-    .join('\n\n');
+const makeCSS = (customizations: BlockStyles,themeMode:ThemeMode) => {
+  if(!themeMode || (themeMode === "light"))
+    return Object.entries(customizations)
+      .map((customization) => makePrefixCSS(...customization))
+      .join('\n\n');
+  else
+    return Object.entries(customizations)
+      .map((customization) => makePrefixCSSDarkMode(...customization))
+      .join('\n\n');
 };
 
 const App = () => {
   const [blockStyles, setBlockStylesInStateOnly] = useState<BlockStyles>(
-    JSON.parse(logseq.settings.blockStyles) as BlockStyles,
+    JSON.parse(logseq.settings?.blockStyles) as BlockStyles,
   );
+  const [userTheme,setUserTheme] = useState<ThemeMode>(undefined)
+
+  React.useEffect(() => {
+    ThemeConfig.getTheme()
+    .then((theme) => {
+      setUserTheme(theme)
+    })
+    ThemeConfig.onThemeChange(setUserTheme)
+  },[])
 
   React.useEffect(() => {
     logseq.provideStyle({
       key: 'logseq-reference-styles-style',
-      style: makeCSS(blockStyles),
+      style: makeCSS(blockStyles,userTheme),
     });
-  }, [blockStyles]);
+  }, [blockStyles,userTheme]);
 
   const setBlockStyles = (blockStyles: BlockStyles) => {
     setBlockStylesInStateOnly(blockStyles);
@@ -59,6 +77,10 @@ const App = () => {
     setBlockStyles(newStyles);
   };
 
+  function isDark() : "" | "dark"{
+    return userTheme === "dark" ? "dark" : ""
+  }
+
   return (
     <div
       tabIndex={-1}
@@ -68,7 +90,7 @@ const App = () => {
       }}
     >
       <div
-        className="block-reference-container"
+        className={`block-reference-container ${isDark()}`}
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -77,17 +99,25 @@ const App = () => {
           X
         </div>
 
+        <div className={`block-ref-style-wrapper title ${isDark()}`}>
+          <div className="block-ref-style title">
+            {["Label","Emoji","Light","Dark"].map((title) => {
+              return (<p className={isDark()} style={{textAlign:"center",fontFamily:"sans-serif"}}>{title}</p>)
+            })}
+          </div>
+        </div>
+
         {Object.entries<BlockStyle>({
           ...blockStyles,
         }).map(([name, blockStyle]) => {
-          const {prefix, character, color} = blockStyle;
+          const {prefix, character, color,colorDarkMode} = blockStyle;
           return (
             <div className="block-ref-style-wrapper">
               <div className="block-ref-style">
-                <input
+                <CustomInput
                   type="text"
-                  className="block-ref-input fix"
                   value={prefix}
+                  className={`${isDark()}`}
                   onChange={(e) =>
                     handleChange(name, {
                       ...blockStyle,
@@ -95,9 +125,9 @@ const App = () => {
                     })
                   }
                 />
-                <input
+                <CustomInput
                   type="text"
-                  className="block-ref-input char"
+                  className={`block-ref-input char ${isDark()}`}
                   value={character}
                   onChange={(e) =>
                     handleChange(name, {
@@ -108,25 +138,28 @@ const App = () => {
                 />
                 <input
                   type="color"
-                  className="block-ref-input color"
+                  className={`block-ref-input color ${isDark()}`}
                   value={color}
                   onChange={(e) =>
                     handleChange(name, {...blockStyle, color: e.target.value})
                   }
                 />
+                <input
+                  type="color"
+                  className={`block-ref-input color-dark ${isDark()}`}
+                  value={colorDarkMode}
+                  onChange={(e) =>
+                    handleChange(name, {...blockStyle, colorDarkMode: e.target.value})
+                  }
+                />
               </div>
-              <input
-                className="btn btn-block-remove"
-                type="button"
-                value="X"
-                onClick={() => handleDelete(name)}
-              />
+              <DeleteButton className="btn btn-block-remove" onClick={() => handleDelete(name)} />
             </div>
           );
         })}
 
-        <input
-          className="btn btn-add"
+        <AddButton
+          className={`btn btn-add ${isDark()}`}
           type="button"
           value="Add"
           onClick={() => handleAdd()}
