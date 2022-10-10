@@ -10,6 +10,11 @@ To open the config screen, open the command palette (Cmd-Shift-P on MacOS, Ctrl-
 
 ![](/demo.gif)
 
+### Installation
+
+- `yarn && yarn build` in the terminal to install dependencies.
+- `Load unpacked plugin` in the Logseq Desktop client (under Plugins).
+
 ### License
 
 MIT
