@@ -22,11 +22,17 @@ export const makePrefixCSS = (
 /* ${title} */
 .page-reference[data-ref^='${prefix}'] .page-ref,
 .page-ref[data-ref^='${prefixEscaped}'],
-.recent-item[data-ref^='${prefixEscaped}'] a,
-.title[data-ref^='${prefixEscaped}'] {
-  ${color ? `color: ${color}!important;` : 'color: inherit!important;'}
+.favorite-item[data-ref^='${prefix}'] a,
+.favorite-item[data-ref^='${prefixEscaped}'] a,
+.recent-item[data-ref^='${prefixEscaped}'] a {
+  color: ${color ? `${color}` : 'inherit'} !important;
   font-weight: 500;
 }
+
+.title[data-ref^='${prefixEscaped}'] {
+  color: ${color ? `${color}` : 'inherit'} !important;
+}
+
 .recent-item[data-ref^='${prefixEscaped}'] {
   position: relative;
 }
